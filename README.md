@@ -255,7 +255,7 @@ python scripts/record_demo.py --pace 0.55        # 录制主流程
 > **为什么修正回流单独录一段**：Gradio 会在手风琴面板折叠时把其子元素移出 DOM，
 > 自动化脚本在长流程末尾驱动这个面板不稳定。功能本身经回调级测试与手工操作验证正常，
 > 因此单独录一段完整、可靠的片段，而不是在长视频里塞入一段可能点不中的操作。
-> 逐句讲解稿见 [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md)。
+> 完整演示流程见 [docs/DEMO_GUIDE.md](docs/DEMO_GUIDE.md)。
 
 ## 6. 技术架构
 
@@ -447,7 +447,7 @@ $ python -m pytest tests/ -q
 | 文档 | 内容 |
 | --- | --- |
 | [docs/PRODUCT_CASE_STUDY.md](docs/PRODUCT_CASE_STUDY.md) | 产品案例：背景、取舍、迭代记录、效果评估 |
-| [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) | 90 秒演示稿（AI 产品经理版 / Agent 产品经理版） |
+| [docs/DEMO_GUIDE.md](docs/DEMO_GUIDE.md) | 演示指引：准备、走查流程、边界说明、常见问题 |
 | [docs/AGENT_ARCHITECTURE.md](docs/AGENT_ARCHITECTURE.md) | **Agent 架构**：双模型、工具注册、权限管理、执行追踪 |
 | [docs/MODEL_COMPARISON.md](docs/MODEL_COMPARISON.md) | 本地 Qwen3-0.6B vs DeepSeek 真机对比 |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | 技术架构、Agent 工具设计、踩坑复盘 |
