@@ -1,6 +1,4 @@
-# Design Decisions
-
-Radiology Copilot 的关键设计决策记录
+# Radiology Copilot 的关键设计决策记录
 
 > 一个面向影像科**诊教研一体化**的 AI 工作台原型
 > 从需求定义到工程落地的完整记录
