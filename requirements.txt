@@ -1,0 +1,32 @@
+# Radiology Copilot — runtime dependencies
+#
+# Versions below are the ones this project was actually developed and verified
+# against.  They are pinned loosely (>=) so a fresh install is not forced onto a
+# single patch release, except where an API is known to have changed.
+
+# --- web UI ---------------------------------------------------------------
+gradio>=5.38,<6
+
+# --- medical imaging ------------------------------------------------------
+nibabel>=5.2,<6              # NIfTI I/O
+numpy>=1.26,<3               # note: MONAI 1.5 supports both numpy 1.x and 2.x
+scipy>=1.11                  # used for array utilities
+
+# --- deep learning --------------------------------------------------------
+# Install torch separately if you need a specific CUDA build, e.g.
+#   pip install torch --index-url https://download.pytorch.org/whl/cu124
+torch>=2.2
+monai>=1.4,<2                # bundle loading + transforms + sliding-window inferer
+
+# --- agent / LLM ----------------------------------------------------------
+openai>=1.40                 # OpenAI-compatible client (DeepSeek, etc.)
+python-dotenv>=1.0           # loads .env for LLM configuration
+
+# --- optional: local model (no GPU, no daemon) ----------------------------
+# Serves Qwen3-0.6B over an OpenAI-compatible API for offline agent runs.
+# CPU-only by default; see scripts/local_llm_server.py
+# llama-cpp-python[server]>=0.3.36
+
+# --- optional: development only -------------------------------------------
+# pytest>=8.0                # tests/
+# playwright>=1.40           # scripts/screenshots.py (browser screenshots)

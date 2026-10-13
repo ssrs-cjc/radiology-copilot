@@ -1,0 +1,78 @@
+# ---------------------------------------------------------------------------
+# Secrets — never commit
+# ---------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# ---------------------------------------------------------------------------
+# Data and model weights
+# ---------------------------------------------------------------------------
+# BraTS/MSD data is publicly available but is NOT redistributed here: it is
+# large, and its licence (CC BY-NC 4.0) is non-commercial.  Reviewers fetch it
+# with `python scripts/fetch_data.py`.
+data/
+models/
+*.nii
+*.nii.gz
+*.nrrd
+*.dcm
+*.mha
+*.h5
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.ts
+
+# ---------------------------------------------------------------------------
+# Generated outputs
+# ---------------------------------------------------------------------------
+outputs/
+*.db
+*.sqlite
+*.sqlite3
+
+# NOTE: assets/screenshots/*.png is deliberately NOT ignored -- the screenshots
+# are a required deliverable of this project and are committed on purpose.
+
+# ---------------------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+.venv/
+venv/
+env/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# ---------------------------------------------------------------------------
+# Editors / OS
+# ---------------------------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Demo video and screenshots are deliverables and ARE committed:
+#   assets/screenshots/*.png, assets/demo/*
+# Only large intermediate files are excluded.
+assets/demo/*_realtime.webm
+
+# Local runtime artefacts (server logs, failed download attempts)
+.local/
