@@ -1,5 +1,9 @@
-# Radiology Copilot · 影像智能诊教研工作台
+# Radiology Copilot
 
+**影像智能诊教研工作台**
+
+> **AI-assisted radiology workflow prototype** integrating brain MRI segmentation, LLM tool orchestration, human review, education, and research feedback.
+>
 > **一个把「AI 分割 → 结构化报告 → 教学练习 → 科研反馈」串成闭环的脑肿瘤 MRI 工作台。**
 > 真实公开数据、真实分割模型、真实 LLM 工具调用，所有数值可复现、所有来源可追溯。
 >
@@ -19,20 +23,20 @@
 
 ## 目录
 
-1. [为什么做这个产品](#1-为什么做这个产品)
-2. [目标用户与实际场景](#2-目标用户与实际场景)
-3. [诊—教—研工作流](#3-诊教研工作流)
-4. [真实 AI 分割与 Agent 工具调用](#4-真实-ai-分割与-agent-工具调用)
-5. [产品界面](#5-产品界面)
-6. [技术架构](#6-技术架构)
-7. [安装与运行](#7-安装与运行)
-8. [数据来源、模型版本与许可证](#8-数据来源模型版本与许可证)
-9. [测试结果](#9-测试结果)
-10. [产品限制](#10-产品限制)
+1. [Overview](#1-overview)
+2. [Use Cases](#2-use-cases)
+3. [Workflow](#3-workflow)
+4. [AI Segmentation and Agent](#4-ai-segmentation-and-agent)
+5. [Interface](#5-interface)
+6. [Architecture](#6-architecture)
+7. [Installation](#7-installation)
+8. [Data, Models and Licenses](#8-data-models-and-licenses)
+9. [Testing](#9-testing)
+10. [Limitations](#10-limitations)
 
 ---
 
-## 1. 为什么做这个产品
+## 1. Overview
 
 影像科的三件事——**辅助诊断、教学、科研**——今天由三套互不相通的工具承担，
 同一个病例的状态在它们之间必然失真：
@@ -47,7 +51,7 @@
 **本项目要做的是**：把三者收敛到**同一个 `Case` 对象**上，
 并且把"AI 能做什么、不能做什么"用工程手段固化下来，而不是写在免责声明里。
 
-## 2. 目标用户与实际场景
+## 2. Use Cases
 
 | 用户 | 场景 | 系统提供 |
 | --- | --- | --- |
@@ -55,7 +59,7 @@
 | **医学影像学生 / 规培医师** | 用真实病例做量化阅片练习 | 提交前隐藏答案的练习、掩膜上传客观评分、结构化核对清单 |
 | **医学影像 AI 科研人员** | 定位模型失败模式 | Dice 统计、错误分类、困难病例清单、人工修正回流、CSV 导出 |
 
-## 3. 诊—教—研工作流
+## 3. Workflow
 
 ```
                     ┌─────────────────────────────────────────┐
@@ -90,7 +94,7 @@
 **闭环的关键**：同一份病例在四个环节之间流转时，影像、掩膜、测量值、审核状态
 始终指向同一条记录，不存在"教学用的是另一个病例"这类错位。
 
-## 4. 真实 AI 分割与 Agent 工具调用
+## 4. AI Segmentation and Agent
 
 ### 4.1 AI 分割（真实模型，非演示数据）
 
@@ -215,7 +219,7 @@ python scripts/compare_llm_providers.py --providers local deepseek
   不符时在回答旁标注，**不以模型的说法覆盖工具结果**
 - **只发送结构化数据**：不含原始影像、文件系统路径或患者信息
 
-## 5. 产品界面
+## 5. Interface
 
 | 工作台 | 智能阅片 · AI 分割 |
 | --- | --- |
@@ -257,7 +261,7 @@ python scripts/record_demo.py --pace 0.55        # 录制主流程
 > 因此单独录一段完整、可靠的片段，而不是在长视频里塞入一段可能点不中的操作。
 > 完整演示流程见 [docs/DEMO_GUIDE.md](docs/DEMO_GUIDE.md)。
 
-## 6. 技术架构
+## 6. Architecture
 
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
@@ -316,7 +320,7 @@ python scripts/record_demo.py --pace 0.55        # 录制主流程
 | 教学答案隔离、人工修正回流、科研反馈与统计口径 | **SQLite**（标准库） |
 | | **Pillow / NumPy**：图像与数组处理 |
 
-## 7. 安装与运行
+## 7. Installation
 
 ### 7.1 环境
 
@@ -380,7 +384,7 @@ python scripts/evaluate_all.py                # 批量评测，产出 Dice 统�
 python scripts/screenshots.py --run-segmentation   # 重新生成界面截图
 ```
 
-## 8. 数据来源、模型版本与许可证
+## 8. Data, Models and Licenses
 
 | 资源 | 版本 / 来源 | 许可证 |
 | --- | --- | --- |
@@ -397,7 +401,7 @@ python scripts/screenshots.py --run-segmentation   # 重新生成界面截图
 - 模型权重由脚本下载，不随仓库分发
 - API Key 只存于 `.env`（已 gitignore），代码中不硬编码、不打印、不记录
 
-## 9. 测试结果
+## 9. Testing
 
 ```bash
 $ python -m pytest tests/ -q
@@ -418,7 +422,7 @@ $ python -m pytest tests/ -q
 全部测试**无需数据集与模型权重**即可通过（用临时目录中的小型 NIfTI 构造夹具），
 并且与宿主环境的 `.env` 隔离，**不会产生真实 API 调用**。
 
-## 10. 产品限制
+## 10. Limitations
 
 **必须明确的边界**
 
@@ -446,7 +450,7 @@ $ python -m pytest tests/ -q
 
 | 文档 | 内容 |
 | --- | --- |
-| [docs/PRODUCT_CASE_STUDY.md](docs/PRODUCT_CASE_STUDY.md) | 产品案例：背景、取舍、迭代记录、效果评估 |
+| [docs/DESIGN_DECISIONS.md](docs/DESIGN_DECISIONS.md) | 关键设计决策、功能取舍、迭代记录与评估方法 |
 | [docs/DEMO_GUIDE.md](docs/DEMO_GUIDE.md) | 演示指引：准备、走查流程、边界说明、常见问题 |
 | [docs/AGENT_ARCHITECTURE.md](docs/AGENT_ARCHITECTURE.md) | **Agent 架构**：双模型、工具注册、权限管理、执行追踪 |
 | [docs/MODEL_COMPARISON.md](docs/MODEL_COMPARISON.md) | 本地 Qwen3-0.6B vs DeepSeek 真机对比 |
