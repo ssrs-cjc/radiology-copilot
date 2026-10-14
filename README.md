@@ -228,19 +228,6 @@ python scripts/compare_llm_providers.py --providers local deepseek
 | [`assets/demo/radiology_copilot_demo.mp4`](assets/demo/radiology_copilot_demo.mp4) | **1:33** | 完整流程：工作台 → AI 分割 → LLM 工具调用 → 报告审核 → 教学 → 科研 |
 | [`assets/demo/radiology_copilot_correction_clip.mp4`](assets/demo/radiology_copilot_correction_clip.mp4) | 0:28 | 人工修正掩膜回流：校验 → 差异分析 → 保存为科研反馈 |
 
-视频由 [scripts/record_demo.py](scripts/record_demo.py)（主流程）驱动**真实运行的程序**录制，
-不是动画或后期合成：其中的分割、LLM 工具调用、报告生成、修正回流都是现场执行的真实结果。
-
-```bash
-python app.py &
-python scripts/record_demo.py --pace 0.55        # 录制主流程
-```
-
-> **为什么修正回流单独录一段**：Gradio 会在手风琴面板折叠时把其子元素移出 DOM，
-> 自动化脚本在长流程末尾驱动这个面板不稳定。功能本身经回调级测试与手工操作验证正常，
-> 因此单独录一段完整、可靠的片段，而不是在长视频里塞入一段可能点不中的操作。
-> 完整演示流程见 [docs/DEMO_GUIDE.md](docs/DEMO_GUIDE.md)。
-
 ## 6. Architecture
 
 ```
@@ -327,8 +314,8 @@ python scripts/fetch_model.py --verify     # 确认能加载
 python scripts/fetch_data.py --cases 6
 ```
 
-脚本从公开的 BraTS 2020 镜像**只下载所需病例**（利用 ZIP 中央目录做 HTTP Range 请求），
-6 例约 480 MB，而非整个 4.5 GB 压缩包。数据写入 `data/`（已被 `.gitignore` 排除）。
+脚本从公开的 BraTS 2020 镜像**只下载所需病例**，
+6 例约 480 MB，而非整个 4.5 GB 压缩包。数据写入 `data/`。
 
 ### 7.4 启动
 
@@ -412,7 +399,7 @@ $ python -m pytest tests/ -q
 - 📊 **6 例 Dice 是小样本实验结果**，不代表模型泛化性能；参考标注本身也存在观察者间差异
 - ⚠️ **Dice 只反映与特定标注的一致性**，不等于临床诊断准确性
 - 👤 **人工修正掩膜为用户上传，未经医师审核**，不构成医生审核结果
-- 🧪 演示模式（用参考标注模拟修正）在各处明确标注为演示，不得当作真实人工修正精度
+- 🧪 演示模式在各处明确标注为演示，不得当作真实人工修正精度
 
 **已知技术限制**
 
